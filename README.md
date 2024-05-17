@@ -10,10 +10,10 @@ Welcome to the RNA Harmonization Study Analysis repository!
 ## Organization
 
 - All data files from the study are under `/data`
-  - 20210603 MassCPR.csv
-  - 20210603 NIST-NML-NIB.csv
-  - 20210810_normal_labs.csv
-  - 20230223 PoC.csv
+  - 20210603 MassCPR.csv -- data from the tech dev platform at MassCPR
+  - 20210603 NIST-NML-NIB.csv -- data from National Labs, different experiment design
+  - 20210810_normal_labs.csv -- data from other labs, formatted consistently
+  - 20230223 PoC.csv -- Proof of Concept experiment data
   
 - Source code is in `/R`, which is organized into folders according to purpose.
   
