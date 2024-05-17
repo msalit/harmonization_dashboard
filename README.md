@@ -9,7 +9,12 @@ Welcome to the RNA Harmonization Study Analysis repository!
 
 ## Organization
 
-- All data used in the study is under `/data`.
+- All data files from the study are under `/data`
+  - 20210603 MassCPR.csv
+  - 20210603 NIST-NML-NIB.csv
+  - 20210810_normal_labs.csv
+  - 20230223 PoC.csv
+  
 - Source code is in `/R`, which is organized into folders according to purpose.
   
 - The app is composed from a [shiny](https://shiny.posit.co/) server and ui, specified in [app_server.R](R/app_server.R) and [app_ui.R](R/app_ui.R) respectively.
