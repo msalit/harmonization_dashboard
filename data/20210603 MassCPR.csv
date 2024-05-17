@@ -1,0 +1,65 @@
+﻿Lab,Target,isCtrl,Batch,dPCR,Sample code,SamName,Dilution,Rep,Sig
+MassCPR,N/Orf1ab,FALSE,1,FALSE,ISN,WHO-IS_dilution_0,1,1,23.02
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS1,WHO-IS_dilution_1,1,1,24.37
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS2,WHO-IS_dilution_2,1,1,32.18
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS3,WHO-IS_dilution_3,1,1,39.82
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS4,WHO-IS_dilution_4,1,1,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS5,WHO-IS_dilution_5,1,1,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS6,WHO-IS_dilution_6,1,1,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I1,Instand,1,1,25.57
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I2,Microbiologics,1,1,26.59
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I3,Thermo Fisher,1,1,39.9
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I4,Zeptometrix,1,1,30.5
+MassCPR,N/Orf1ab,FALSE,2,FALSE,R1,LGC SeraCare,1,1,29.93
+MassCPR,N/Orf1ab,FALSE,1,FALSE,R2,NIBSC,1,1,24.07
+MassCPR,N/Orf1ab,FALSE,1,FALSE,P1,Asuragen,1.00E-04,1,28.8
+MassCPR,N/Orf1ab,FALSE,2,FALSE,P2,Imperial College,1,1,31.02
+MassCPR,N/Orf1ab,TRUE,1,FALSE,NTC,Nontemplate_control,1,1,45
+MassCPR,N/Orf1ab,FALSE,2,FALSE,ISN,WHO-IS_dilution_0,1,2,19.95
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS1,WHO-IS_dilution_1,1,2,24.1
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS2,WHO-IS_dilution_2,1,2,30.2
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS3,WHO-IS_dilution_3,1,2,32.53
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS4,WHO-IS_dilution_4,1,2,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS5,WHO-IS_dilution_5,1,2,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS6,WHO-IS_dilution_6,1,2,
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I1,Instand,1,2,28.04
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I2,Microbiologics,1,2,27.04
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I3,Thermo Fisher,1,2,39.73
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I4,Zeptometrix,1,2,29.5
+MassCPR,N/Orf1ab,FALSE,1,FALSE,R1,LGC SeraCare,1,2,32.29
+MassCPR,N/Orf1ab,FALSE,2,FALSE,R2,NIBSC,1,2,23.25
+MassCPR,N/Orf1ab,FALSE,2,FALSE,P1,Asuragen,0.0001,2,34.52
+MassCPR,N/Orf1ab,FALSE,1,FALSE,P2,Imperial College,1,2,29.17
+MassCPR,N/Orf1ab,TRUE,2,FALSE,NTC,Nontemplate_control,1,2,45
+MassCPR,N/Orf1ab,FALSE,1,FALSE,ISN,WHO-IS_dilution_0,1,3,20.35
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS1,WHO-IS_dilution_1,1,3,24.72
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS2,WHO-IS_dilution_2,1,3,27.97
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS3,WHO-IS_dilution_3,1,3,30.47
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS4,WHO-IS_dilution_4,1,3,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS5,WHO-IS_dilution_5,1,3,
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS6,WHO-IS_dilution_6,1,3,
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I1,Instand,1,3,26.9
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I2,Microbiologics,1,3,26.41
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I3,Thermo Fisher,1,3,32.8
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I4,Zeptometrix,1,3,33.95
+MassCPR,N/Orf1ab,FALSE,2,FALSE,R1,LGC SeraCare,1,3,32.57
+MassCPR,N/Orf1ab,FALSE,1,FALSE,R2,NIBSC,1,3,23.47
+MassCPR,N/Orf1ab,FALSE,1,FALSE,P1,Asuragen,0.0001,3,26.88
+MassCPR,N/Orf1ab,FALSE,2,FALSE,P2,Imperial College,1,3,30.59
+MassCPR,N/Orf1ab,TRUE,1,FALSE,NTC,Nontemplate_control,1,3,45
+MassCPR,N/Orf1ab,FALSE,1,FALSE,ISN,WHO-IS_dilution_0,1,4,18.78
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS1,WHO-IS_dilution_1,1,4,21.42
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS2,WHO-IS_dilution_2,1,4,23.58
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS3,WHO-IS_dilution_3,1,4,29.49
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS4,WHO-IS_dilution_4,1,4,28.29
+MassCPR,N/Orf1ab,FALSE,2,FALSE,IS5,WHO-IS_dilution_5,1,4,
+MassCPR,N/Orf1ab,FALSE,1,FALSE,IS6,WHO-IS_dilution_6,1,4,
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I1,Instand,1,4,27.73
+MassCPR,N/Orf1ab,FALSE,1,FALSE,I2,Microbiologics,1,4,27.54
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I3,Thermo Fisher,1,4,39.44
+MassCPR,N/Orf1ab,FALSE,2,FALSE,I4,Zeptometrix,1,4,28.61
+MassCPR,N/Orf1ab,FALSE,1,FALSE,R1,LGC SeraCare,1,4,45
+MassCPR,N/Orf1ab,FALSE,2,FALSE,R2,NIBSC,1,4,23.55
+MassCPR,N/Orf1ab,FALSE,2,FALSE,P1,Asuragen,0.0001,4,29.22
+MassCPR,N/Orf1ab,FALSE,1,FALSE,P2,Imperial College,1,4,29.12
+MassCPR,N/Orf1ab,TRUE,2,FALSE,NTC,Nontemplate_control,1,4,45
