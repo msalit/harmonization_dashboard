@@ -36,7 +36,10 @@ Welcome to the RNA Harmonization Study Analysis repository!
   - `materialTable()`
   - `materialSummary()`
   - `labTargTable()`
-- And finally, functions which process the Proof of Concept data reside in [poc_utils.R](R/poc_utils.R)
+- Functions which process the Proof of Concept data reside in [poc_utils.R](R/poc_utils.R)
   - `plot_poc_results()`
   - `calibPoC()`
-  - `pubPlots()`
+- And finally, functions to create and save publication-ready plots are in makePubPlots.R
+  - `pubBoxPlots1b()`
+  - `pubResults2a()`
+  - `pubPoC2b()`
