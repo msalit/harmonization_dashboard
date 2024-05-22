@@ -1,5 +1,3 @@
-#source("data_intake.R")
-
 # This function will analyze the data
 #  • it will separate the long tibble (r data frame) into a grouped tibble
 #  • it will calibrate the relationship between the IU and the signal
