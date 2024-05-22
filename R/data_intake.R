@@ -3,7 +3,7 @@
 # Utility functions to read in study data.
 
 getPoC <- function() {
-    PoC <- read_csv("..\\data\\20230223 PoC.csv",
+    PoC <- read_csv(file.path( "..", "data", "20230223 PoC.csv"),
         col_types = cols(
             Replicate = col_integer(),
             Experiment = col_integer()
@@ -15,13 +15,13 @@ getPoC <- function() {
 
 getStudyData <- function() {
     # read in the "standard" data -- massaged in Excel to be well-posed
-    easyData <- read_csv("..\\data\\20210810_normal_labs.csv")
+    easyData <- read_csv(file.path( "..", "data", "20210810_normal_labs.csv" ))
 
     # read in the MassCPR data -- this is LONG already, as replicates were done in different batches
-    MassCPR_l <- read_csv("..\\data\\20210603 MassCPR.csv")
+    MassCPR_l <- read_csv(file.path( "..", "data", "20210603 MassCPR.csv"))
 
     # read in the NIST and NML data --
-    NMIdata <- read_csv("..\\data\\20210603 NIST-NML-NIB.csv")
+    NMIdata <- read_csv(file.path( "..", "data", "20210603 NIST-NML-NIB.csv"))
 
     # make the 9-lab data frame tidy/long for analysis and plotting
     easyData_l <- pivot_longer(easyData, cols = c(9:12), names_to = "Rep", values_to = "Sig")
