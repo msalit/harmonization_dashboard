@@ -30,6 +30,23 @@
       ],
       "Hash": "72f87e0092e39384aee16df8d67d7410"
     },
+    "DT": {
+      "Package": "DT",
+      "Version": "0.33",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "crosstalk",
+        "htmltools",
+        "htmlwidgets",
+        "httpuv",
+        "jquerylib",
+        "jsonlite",
+        "magrittr",
+        "promises"
+      ],
+      "Hash": "64ff3427f559ce3f2597a4fe13255cb6"
+    },
     "GGally": {
       "Package": "GGally",
       "Version": "2.2.1",
@@ -127,6 +144,16 @@
         "sys"
       ],
       "Hash": "cad6cf7f1d5f6e906700b9d3e718c796"
+    },
+    "assertthat": {
+      "Package": "assertthat",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "tools"
+      ],
+      "Hash": "50c838a310445e954bc13f26f26a6ecf"
     },
     "backports": {
       "Package": "backports",
@@ -878,6 +905,31 @@
       ],
       "Hash": "ac107251d9d9fd72f0ca8049988f1d7f"
     },
+    "huxtable": {
+      "Package": "huxtable",
+      "Version": "5.5.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "R6",
+        "assertthat",
+        "commonmark",
+        "fansi",
+        "generics",
+        "glue",
+        "htmltools",
+        "memoise",
+        "rlang",
+        "stats",
+        "stringi",
+        "stringr",
+        "tidyselect",
+        "utils",
+        "xml2"
+      ],
+      "Hash": "48dbfa5ddc717a71fdac8dbad89d1756"
+    },
     "ids": {
       "Package": "ids",
       "Version": "1.0.1",
@@ -932,6 +984,24 @@
         "methods"
       ],
       "Hash": "e1b9c55281c5adc4dd113652d9e26768"
+    },
+    "jtools": {
+      "Package": "jtools",
+      "Version": "2.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "crayon",
+        "generics",
+        "ggplot2",
+        "magrittr",
+        "pander",
+        "pkgconfig",
+        "rlang",
+        "tibble"
+      ],
+      "Hash": "ba7507810d8784d3ebe67c8fe3906d99"
     },
     "knitr": {
       "Package": "knitr",
@@ -1140,6 +1210,24 @@
         "askpass"
       ],
       "Hash": "2bcca3848e4734eb3b16103bc9aa4b8e"
+    },
+    "pander": {
+      "Package": "pander",
+      "Version": "0.6.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "digest",
+        "grDevices",
+        "graphics",
+        "methods",
+        "stats",
+        "tools",
+        "utils"
+      ],
+      "Hash": "737924139a1e4fc96356ff377c754c35"
     },
     "parameters": {
       "Package": "parameters",
