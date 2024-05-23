@@ -1,4 +1,5 @@
 # RNA Harmonization Study Analysis App
+print(paste("Runtime Directory:",getwd()))
 
 # source the libraries
 require(tidyverse)
