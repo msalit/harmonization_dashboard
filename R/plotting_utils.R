@@ -92,9 +92,9 @@ sampleByRank <- function(aSample) {
     p <- myValues +
         geom_boxplot() +
         geom_jitter(aes(color = LabTarg, alpha = 0.4, shape = Batch)) +
-        geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, size = 1.2) +
-        geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
-        geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
+        geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, linewidth = 1.2) +
+        geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
+        geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
         theme_bw() +
         scale_y_log10(
             limits = c(10^(aSampleMedian - 1), 10^(aSampleMedian + 1)),
@@ -145,9 +145,9 @@ sampleByLabTarg <- function(aSample) {
         geom_boxplot() +
         geom_jitter(aes(color = LabTarg, alpha = 0.4, shape = Batch)) +
         # geom_rug(sides="r", aes(color = LabTarg)) +
-        geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, size = 1.2) +
-        geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
-        geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
+        geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, linewidth = 1.2) +
+        geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
+        geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
         theme_bw() +
         scale_y_log10(
             limits = c(10^(aSampleMedian - 1), 10^(aSampleMedian + 1)),

@@ -156,17 +156,22 @@ pubResults2a <- function( samMedian ) {
   names(myCompar) = c( "Material", "studyVal", "studyValCI", "nominal")
   
   # make the ggplot object
-  myCompPlot = ggplot( myCompar, aes( x=nominal, y = studyVal, color = Material))
+  myCompPlot = ggplot( myCompar, aes( x=10^nominal, y = 10^studyVal, color = Material))
   
   # and a pointrange (error bar) plot
   myCompPlot + 
-    geom_pointrange(aes( ymin = studyVal - studyValCI, ymax = studyVal + studyValCI), alpha =0.7) + 
+    geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) + 
     theme_bw() + 
-    ylab("Study Results (log10 IU/mL)") +
-    xlab( "Nominal Value (log10 genome copies/mL)") +
+    ylab("Study Results (IU/mL)") +
+    xlab( "Nominal Value (genome copies/mL)") +
+    scale_y_log10(label = label_log(), breaks=breaks_log()) +
+    scale_x_log10(label = label_log(), breaks=breaks_log()) +
     theme( legend.position = "bottom") +
+    theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
     geom_abline(intercept = 0, slope = 7.7/8, color = "grey") +
     theme(text=element_text(size=16,  family="Trade Gothic LT Std"))
+  
+  ggsave(paste("fig2a", ".tiff", sep=""), width=180, height = 180, units ="mm", dpi=600, device="tiff" ) 
 }
 
 
@@ -176,18 +181,22 @@ pubPoC2b <- function( samMedian ) {
   myPoC = computePoC()
   
   # make Figure 2b for publication
-  myPoC_bySample = ggplot(myPoC, aes(x=LabTargExpt, y=log10IU_Sample))
+  myPoC_bySample = ggplot(myPoC, aes(x=LabTargExpt, y=10^log10IU_Sample))
   
   myPoC_bySample + theme_bw() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     geom_jitter(aes(color=Calibrant)) +
+    scale_y_log10(label = label_log(), breaks=breaks_log()) +
     scale_colour_manual(values=c("#3182bd", "#fdae6b")) +
     facet_wrap(~SamName.x) +
-    ggtitle( "Calibrated results on Clinical Samples") +
-    ylab( "log10 IU" ) + xlab ("Lab:Target:Run") +
-    theme(text=element_text(size=16,  family="Trade Gothic LT Std")) +
-    theme( strip.text.x = element_text( hjust = 0, family="Trade Gothic LT Std", face="bold" ))
+    #ggtitle( "Calibrated results on Clinical Samples") +
+    ylab( "IU" ) + xlab ("Lab:Target:Run") +
+    theme(text=element_text(size=14,  family="Trade Gothic LT Std")) +
+    theme(axis.text.x = element_text( size = 9 )) +
+    theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
+    theme( strip.text.x = element_text(size=16, hjust = 0, family="Trade Gothic LT Std", face="bold" ))
   
-  #ggsave( "fig2b.tif", width=8, height = 10, units ="in", device="pdf" )
+  #ggsave( "fig2b", width=8, height = 10, units ="in", device="pdf" )
+  ggsave(paste("fig2b", ".tiff", sep=""), width=180, height = 180, units ="mm", dpi=600, device="tiff" ) 
   
 }

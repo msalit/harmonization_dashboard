@@ -24,6 +24,7 @@ source("calibration_utils.R")
 source("plotting_utils.R")
 source("table_utils.R")
 source("poc_utils.R")
+source("makePubPlots.R")
 
 
 # Run the shiny app
