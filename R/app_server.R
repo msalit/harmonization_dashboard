@@ -11,7 +11,7 @@ server <- function(input, output) {
             session = getDefaultReactiveDomain(), inputId = "selectedTarget",
             choices = as.character(levels(fct_drop(factor(myResults[which(myResults$Lab == input$selectedLab), ]$Target))))
         )
-        output$calPlot <- renderPlot(
+        output$calPlot <- renderPlot( res=96,
             width = 500, height = "auto",
             # generate cal curve based on input$selectedLab and input$selectedTarget from ui.R
             plotCal(myResults[which((myResults$Lab == input$selectedLab) & (myResults$Target == input$selectedTarget)), ])
@@ -34,22 +34,22 @@ server <- function(input, output) {
             ) %>% DT::formatSignif(c("Signal", "log10_IU_per_mL_pred", "Wts"), digits = 4, interval = 0)
         })
 
-        output$rankPlot <- renderPlot(
+        output$rankPlot <- renderPlot( res=96,
             width = 700, height = 700,
             sampleByRank(myResults[which(myResults$SamName == input$selectedMaterial), ])
         )
 
-        output$labPlot <- renderPlot(
+        output$labPlot <- renderPlot( res=96,
             width = 700, height = 700,
             sampleByLabTarg(myResults[which(myResults$SamName == input$selectedMaterial), ])
         )
 
-        output$devPlot <- renderPlot(
+        output$devPlot <- renderPlot( res=96,
             width = 700, height = 700,
             plotDeviations(myResults)
         )
 
-        output$compPlot <- renderPlot(
+        output$compPlot <- renderPlot( res=96,
             width = 500, height = 500,
             comparePlot(materialSummary(myResults))
         )
@@ -96,11 +96,11 @@ server <- function(input, output) {
                 )
             }
         )
-        output$POC_results_shared <- renderPlot(
+        output$POC_results_shared <- renderPlot( res=96,
             width = 1000, height = 1000,
             plot_poc_results(shared_axis = TRUE)
         )
-        output$POC_results_free <- renderPlot(
+        output$POC_results_free <- renderPlot( res=96,
             width = 1000, height = 1000,
             plot_poc_results(shared_axis = FALSE)
         )
