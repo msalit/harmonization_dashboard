@@ -6,7 +6,7 @@ plot_poc_results <- function(shared_axis) {
   PoC_results = computePoC()
   
   # build the plot -- we can plot it with free_y or fixed scales
-  myPoC_bySample <- ggplot(PoC_results, aes(x = LabTargExpt, y = log10IU_Sample))
+  myPoC_bySample <- ggplot(PoC_results, aes(x = LabTargExpt, y = 10^log10IU_Sample))
 
   if (shared_axis) {
     axis_scale_setting <- "fixed"
@@ -17,11 +17,12 @@ plot_poc_results <- function(shared_axis) {
   myPoC_bySample + theme_bw() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     theme(legend.position = "bottom") +
+    scale_y_log10(label = label_log(), breaks=breaks_log()) +
     geom_jitter(aes(color = Calibrant)) +
     facet_wrap(~SamName.x, scales = axis_scale_setting) +
     scale_colour_manual(values = c("#3182bd", "#fdae6b")) +
     ggtitle("Calibrated results on Clinical Samples") +
-    ylab("log10 IU") + xlab("Lab:Target:Run:Calibrant")
+    ylab("IU") + xlab("Lab:Target:Run:Calibrant")
 }
 
 

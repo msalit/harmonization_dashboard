@@ -220,6 +220,7 @@ plotDeviations <- function(myResults) {
 
 # function to plot material median results against the nominal values
 comparePlot <- function(samMedian) {
+    
     # here are the nominal values in alphabetical order, in log10 copies/mL
     myNominals <- c(10.30103, 4, 5.195899652, 3.698970004, 4.505149978, 6.73, 3.698970004, 4.698970004)
 
@@ -228,14 +229,17 @@ comparePlot <- function(samMedian) {
     names(myCompar) <- c("Material", "studyVal", "studyValCI", "nominal")
 
     # make the ggplot object
-    myCompPlot <- ggplot(myCompar, aes(x = nominal, y = studyVal, color = Material))
+    myCompPlot <- ggplot(myCompar, aes(x = 10^nominal, y = 10^studyVal, color = Material))
 
     # and a pointrange (error bar) plot
     myCompPlot +
-        geom_pointrange(aes(ymin = studyVal - studyValCI, ymax = studyVal + studyValCI), alpha = 0.7) +
-        theme_bw() +
-        ylab("Study Results (log10 IU/mL)") +
-        xlab("Nominal Value (log10 genome copies/mL)") +
-        theme(legend.position = "bottom") +
-        geom_abline(intercept = 0, slope = 7.7 / 8, color = "grey")
+        geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) + 
+        theme_bw() + 
+        ylab("Study Results (IU/mL)") +
+        xlab( "Nominal Value (genome copies/mL)") +
+        scale_y_log10(label = label_log(), breaks=breaks_log()) +
+        scale_x_log10(label = label_log(), breaks=breaks_log()) +
+        theme( legend.position = "bottom") +
+        theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
+        geom_abline(intercept = 0, slope = 7.7/8, color = "grey")      
 }
