@@ -14,7 +14,8 @@ plot_poc_results <- function(shared_axis) {
     axis_scale_setting <- "free_y"
   }
 
-  myPoC_bySample + theme_bw() +
+  myPlotPoC = 
+    myPoC_bySample + theme_bw() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
     theme(legend.position = "bottom") +
     scale_y_log10(label = label_log(), breaks=breaks_log()) +
@@ -23,6 +24,8 @@ plot_poc_results <- function(shared_axis) {
     scale_colour_manual(values = c("#3182bd", "#fdae6b")) +
     ggtitle("Calibrated results on Clinical Samples") +
     ylab("IU") + xlab("Lab:Target:Run:Calibrant")
+  
+  return( myPlotPoC ) # for the renderPlot() shiny call
 }
 
 

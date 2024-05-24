@@ -76,7 +76,8 @@ ui <- fluidPage(
                                 "Full Dataset",
                                 tags$div(
                                     style = "padding-top:20px; padding-bottom:20px",
-                                    downloadButton("downloadFullData", "Download Full Dataset as .csv", style = "background-color: #377b57;")
+                                    #downloadButton("downloadFullData", "Download Full Dataset as .csv", style = "background-color: #377b57;")
+                                    downloadButton("downloadFullData", "Download Full Dataset as .csv")
                                 ), DT::dataTableOutput("studyComplete")
                             )
                         )
@@ -87,7 +88,8 @@ ui <- fluidPage(
                         h4("Results from the Proof of Concept Study"),
                         tags$div(
                             style = "padding-top:20px; padding-bottom:20px",
-                            downloadButton("downloadPoCData", "Download PoC Results as .csv", style = "background-color: #2861bd;")
+                            #downloadButton("downloadPoCData", "Download PoC Results as .csv", style = "background-color: #2861bd;")
+                            downloadButton("downloadPoCData", "Download PoC Results as .csv")
                         ),
                         tabsetPanel(
                             tabPanel("PoC Shared Y Axis", plotOutput("POC_results_shared")),

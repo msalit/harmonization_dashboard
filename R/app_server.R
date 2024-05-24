@@ -97,11 +97,12 @@ server <- function(input, output) {
             }
         )
         output$POC_results_shared <- renderPlot( res=96,
-            width = 1000, height = 1000,
+            width = 700, height = 1000,
+            #width = "auto", height = "auto",
             plot_poc_results(shared_axis = TRUE)
         )
         output$POC_results_free <- renderPlot( res=96,
-            width = 1000, height = 1000,
+            width = 850, height = 1000,
             plot_poc_results(shared_axis = FALSE)
         )
     })
