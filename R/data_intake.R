@@ -109,6 +109,7 @@ getStudyData <- function() {
     # group by Lab:Target:SamName
     myGroupedAll <- group_by(allData_l, Lab, Target, SamName, Batch)
 
+    # 27 May 2024 -- it looks like the documentation for the next 2 lines of code calculating weights is switched, but the code is right!
     # calculate the weights for dPCR, where the dependent variable is log Signal
     myGroupedAllWtsQpcr <- myGroupedAll[which(!myGroupedAll$dPCR), ] %>% mutate(wts = 1 / sd(Sig, na.rm = TRUE)^2)
 
@@ -122,7 +123,7 @@ getStudyData <- function() {
     # make a composite data frame
     myDataWts <- rbind(myGroupedAllWtsDpcr, myGroupedAllWtsQpcr)
 
-    # set the weights to non-calibrant samples to NA
+    # set the weights of non-calibrant samples to NA
     myDataWts[which(!myDataWts$isCalib), ]$wts <- NA
 
     # return this munged tibble
