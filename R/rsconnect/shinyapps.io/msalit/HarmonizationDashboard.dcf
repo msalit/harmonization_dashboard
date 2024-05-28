@@ -5,7 +5,7 @@ account: msalit
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12078167
-bundleId: 8666121
+bundleId: 8666162
 url: https://msalit.shinyapps.io/HarmonizationDashboard/
 version: 1
 asMultiple: FALSE
