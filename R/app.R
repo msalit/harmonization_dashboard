@@ -15,10 +15,6 @@ require(shiny)
 require(robustbase)
 require(GGally)
 
-# app components
-source("app_ui.R")
-source("app_server.R")
-
 # utilities
 source("data_intake.R")
 source("calibration_utils.R")
@@ -27,6 +23,9 @@ source("table_utils.R")
 source("poc_utils.R")
 source("makePubPlots.R")
 
+# app components
+source("app_ui.R")
+source("app_server.R")
 
 # Run the shiny app
 shinyApp(ui = ui, server = server)
