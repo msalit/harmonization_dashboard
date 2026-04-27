@@ -4,7 +4,7 @@ Welcome to the RNA Harmonization Study Analysis repository!
 
 ## Links
 
-- The live dashboard is available !TODO.
+- The live dashboard is available at https://msalit.shinyapps.io/HarmonizationDashboard/.
 - The paper for this study is available at https://www.medrxiv.org/content/10.1101/2024.10.05.24314949v1 (medRxiv preprint).
 
 ## Running the app locally
