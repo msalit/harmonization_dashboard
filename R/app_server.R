@@ -1,9 +1,5 @@
 # Server function for the shiny app
 
-library(jtools)
-if (!require("DT")) install.packages("DT")
-library(DT)
-
 server <- function(input, output) {
     observe({
         # update the options for the target dropdown given the selected lab
@@ -91,7 +87,7 @@ server <- function(input, output) {
             filename = "proof_of_concept_dataset.csv",
             content = function(file) {
                 file.copy(
-                    from = "..\\data\\20230223 PoC.csv",
+                    from = file.path("data", "20230223_PoC.csv"),
                     to = file
                 )
             }

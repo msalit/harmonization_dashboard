@@ -3,8 +3,7 @@
 # Utility functions to read in study data
 
 getPoC <- function() {
-    
-    PoC <- read_csv(file.path( "..", "data", "20230223 PoC.csv"),
+    PoC <- read_csv(file.path("data", "20230223_PoC.csv"),
         col_types = cols(
             Replicate = col_integer(),
             Experiment = col_integer()))
@@ -14,13 +13,13 @@ getPoC <- function() {
 
 getStudyData <- function() {
     # read in the "standard" data -- massaged in Excel to be well-posed
-    easyData <- read_csv(file.path( "..", "data", "20210810_normal_labs.csv" ))
+    easyData <- read_csv(file.path("data", "20210810_normal_labs.csv"))
 
     # read in the MassCPR data -- this is LONG already, as replicates were done in different batches
-    MassCPR_l <- read_csv(file.path( "..", "data", "20210603 MassCPR.csv"))
+    MassCPR_l <- read_csv(file.path("data", "20210603_MassCPR.csv"))
 
     # read in the NIST and NML data --
-    NMIdata <- read_csv(file.path( "..", "data", "20210603 NIST-NML-NIB.csv"))
+    NMIdata <- read_csv(file.path("data", "20210603_NIST-NML-NIB.csv"))
 
     # make the 9-lab data frame tidy/long for analysis and plotting
     easyData_l <- pivot_longer(easyData, cols = c(9:12), names_to = "Rep", values_to = "Sig")
@@ -109,11 +108,10 @@ getStudyData <- function() {
     # group by Lab:Target:SamName
     myGroupedAll <- group_by(allData_l, Lab, Target, SamName, Batch)
 
-    # 27 May 2024 -- it looks like the documentation for the next 2 lines of code calculating weights is switched, but the code is right!
-    # calculate the weights for dPCR, where the dependent variable is log Signal
+    # calculate the weights for qPCR, where the dependent variable is Cq (already log space)
     myGroupedAllWtsQpcr <- myGroupedAll[which(!myGroupedAll$dPCR), ] %>% mutate(wts = 1 / sd(Sig, na.rm = TRUE)^2)
 
-    # calculate the weights for qPCR, where the dependent variable is Cq, which is already log space
+    # calculate the weights for dPCR, where the dependent variable is log Signal
     myGroupedAllWtsDpcr <- myGroupedAll[which(myGroupedAll$dPCR), ] %>% mutate(wts = 1 / sd(logSig, na.rm = TRUE)^2)
 
     # ungroup the data for further use...

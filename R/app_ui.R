@@ -1,24 +1,5 @@
 # RNA Harmonization Analysis App
-
-library(shiny)
-library(shinythemes)
-if (!require("DT")) install.packages("DT")
-library(DT)
-
-
-study <- getStudyData()
-
-# compute the results
-myResults <- lapply(levels(study$Lab), function(Lab) {
-    calAndPredict(study[study$Lab == Lab, ])
-})
-myResults <- do.call(rbind, myResults)
-
-# get lists of labs, materials, and targets to populate dropdown UI selectors
-labDropdownOptions <- levels(myResults$Lab)
-materialDropdownOptions <- fct_drop(factor(myResults$SamName[which(!myResults$isCalib & !myResults$isCtrl)]))
-targetDropdownOptions <- levels(fct_drop(factor(myResults[which(myResults$Lab == labDropdownOptions[1]), ]$Target)))
-
+# UI definition. Relies on study/myResults/dropdown options precomputed in global.R.
 
 ui <- fluidPage(
     theme = shinytheme("united"),

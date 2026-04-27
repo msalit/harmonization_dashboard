@@ -13,28 +13,14 @@
 
 # make and save a ranked-by-Lab:Target box plot for each material
 pubBoxPlots1b <- function() {
-  
-  # register system fonts for the publication-ready box plots
-  #library(extrafont)
-  #library(extrafontdb)
-  #font_import()
-  
+
   # get the data in scope
-  #myResults = getStudyData()
-  study = getStudyData()
-  
-  # Now compute the results
-  i = 0
-  myResults = study
-  for( Lab in levels(study$Lab)) {
-    
-    newLab = calAndPredict(study[which(study$Lab == Lab),], FALSE)
-    if (i == 0)
-      myResults = newLab
-    else
-      myResults = rbind(myResults, newLab)
-    i = i+1
-  }
+  study <- getStudyData()
+
+  # compute calibrated results, lab by lab
+  myResults <- do.call(rbind, lapply(levels(study$Lab), function(Lab) {
+    calAndPredict(study[which(study$Lab == Lab), ], FALSE)
+  }))
   
   # get a factor list of sample names (not WHO_IS)
   myMaterials = levels(fct_drop(factor(myResults$SamName[which(!myResults$isCalib & !myResults$isCtrl)])))
@@ -86,11 +72,9 @@ sampleByRankForPub <- function( aSample ) {
     geom_boxplot() + 
     geom_jitter(aes(color = LabTarg, alpha =0.4, shape = Batch)) +
     #geom_rug(sides="r", aes(color = LabTarg)) +
-    geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, size = 1.2) +
-    #geom_ribbon( aes(x=LabTarg, ymin = 10^(aSampleMedian - aSampleMad),  ymax = 10^(aSampleMedian + aSampleMad)), fill = "grey30" ) +
-    #geom_ribbon( aes(x=LabTarg, ymin = 10^(aSampleMedian - 0.8),  ymax = 10^(aSampleMedian + 0.8)), fill = "grey70" ) +
-    geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
-    geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, size = 0.8) +
+    geom_hline(yintercept = 10^aSampleMedian, colour = "orange", linetype = 2, linewidth = 1.2) +
+    geom_hline(yintercept = 10^(aSampleMedian - aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
+    geom_hline(yintercept = 10^(aSampleMedian + aSampleMad), colour = "grey70", linetype = 2, linewidth = 0.8) +
     theme_bw() + 
     scale_y_log10(
       limits = c( 10^(aSampleMedian -1 ), 10^(aSampleMedian + 1) ),
@@ -126,27 +110,18 @@ sampleByRankForPub <- function( aSample ) {
 
 
 # function to plot material median results against the nominal values
-pubResults2a <- function( samMedian ) {
-  
-  # calculate the results
+pubResults2a <- function() {
+
   # get the data in scope
-  myResults = getStudyData()
-  
-  # Now compute the results
-  i = 0
-  myResults = study
-  for( Lab in levels(study$Lab)) {
-    
-    newLab = calAndPredict(study[which(study$Lab == Lab),], FALSE)
-    if (i == 0)
-      myResults = newLab
-    else
-      myResults = rbind(myResults, newLab)
-    i = i+1
-  }
-  
+  study <- getStudyData()
+
+  # compute calibrated results, lab by lab
+  myResults <- do.call(rbind, lapply(levels(study$Lab), function(Lab) {
+    calAndPredict(study[which(study$Lab == Lab), ], FALSE)
+  }))
+
   # get the sample medians
-  samMedian = materialSummary( myResults )
+  samMedian <- materialSummary(myResults)
   
   # here are the nominal values in alphabetical order, in log10 copies/mL
   myNominals = c(10.30103, 4, 5.195899652, 3.698970004, 4.505149978, 6.73, 3.698970004, 4.698970004)
