@@ -5,7 +5,7 @@ Welcome to the RNA Harmonization Study Analysis repository!
 ## Links
 
 - The live dashboard is available at https://msalit.shinyapps.io/HarmonizationDashboard/.
-- The paper for this study is available at https://www.medrxiv.org/content/10.1101/2024.10.05.24314949v1 (medRxiv preprint).
+- The paper for this study, *A playbook for harmonization of standards for emergent viral pathogens*, is available as a medRxiv preprint at https://doi.org/10.1101/2024.10.05.24314949 (v1: https://www.medrxiv.org/content/10.1101/2024.10.05.24314949v1).
 
 ## Running the app locally
 
