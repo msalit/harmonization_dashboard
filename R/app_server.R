@@ -1,107 +1,119 @@
 # Server function for the shiny app
+#
+# Each output below is its own reactive context (renderPlot/renderUI/
+# renderDataTable establish their own input dependencies), so they live at the
+# top level of server() and re-run only when the inputs they read change.
+# The single observe() is reserved for the one true side effect -- pushing new
+# Target choices into the dropdown when the selected Lab changes.
 
 server <- function(input, output) {
+    # update the options for the target dropdown given the selected lab
     observe({
-        # update the options for the target dropdown given the selected lab
         updateSelectInput(
             session = getDefaultReactiveDomain(), inputId = "selectedTarget",
             choices = as.character(levels(fct_drop(factor(myResults[which(myResults$Lab == input$selectedLab), ]$Target))))
         )
-        output$calPlot <- renderPlot( res=96,
-            width = 500, height = "auto",
-            # generate cal curve based on input$selectedLab and input$selectedTarget from ui.R
-            plotCal(myResults[which((myResults$Lab == input$selectedLab) & (myResults$Target == input$selectedTarget)), ])
-        )
+    })
 
-        statistics_to_display <- c(N = "nobs", R2 = "r.squared", Adj_R2 = "adj.r.squared", Residual_Std_Err = "sigma", F_statistic = "statistic")
-        output$calSummary <- renderUI(
-            HTML(huxtable::to_html(export_summs(summ(fitCal(myResults[which((myResults$Lab == input$selectedLab) & (myResults$Target == input$selectedTarget)), ]), digits = 2), statistics = statistics_to_display)))
-        )
+    output$calPlot <- renderPlot( res=96,
+        width = 500, height = "auto",
+        # generate cal curve based on input$selectedLab and input$selectedTarget from ui.R
+        plotCal(myResults[which((myResults$Lab == input$selectedLab) & (myResults$Target == input$selectedTarget)), ])
+    )
 
-        output$labTargTable <- DT::renderDataTable({
-            DT::datatable(
-                labTargTable(
-                    myResults[which((myResults$Lab == input$selectedLab) &
-                        (myResults$Target == input$selectedTarget)), ]
-                )[, 1:7],
-                caption = "Calibration Results",
-                rownames = FALSE,
-                options = list(pageLength = 25)
-            ) %>% DT::formatSignif(c("Signal", "log10_IU_per_mL_pred", "Wts"), digits = 4, interval = 0)
-        })
+    statistics_to_display <- c(N = "nobs", R2 = "r.squared", Adj_R2 = "adj.r.squared", Residual_Std_Err = "sigma", F_statistic = "statistic")
+    output$calSummary <- renderUI(
+        HTML(huxtable::to_html(export_summs(summ(fitCal(myResults[which((myResults$Lab == input$selectedLab) & (myResults$Target == input$selectedTarget)), ]), digits = 2), statistics = statistics_to_display)))
+    )
 
-        output$rankPlot <- renderPlot( res=96,
-            width = 700, height = 700,
-            sampleByRank(myResults[which(myResults$SamName == input$selectedMaterial), ])
-        )
+    output$labTargTable <- DT::renderDataTable({
+        DT::datatable(
+            labTargTable(
+                myResults[which((myResults$Lab == input$selectedLab) &
+                    (myResults$Target == input$selectedTarget)), ]
+            )[, 1:7],
+            caption = "Calibration Results",
+            rownames = FALSE,
+            options = list(pageLength = 25)
+        ) %>% DT::formatSignif(c("Signal", "log10_IU_per_mL_pred", "Wts"), digits = 4, interval = 0)
+    })
 
-        output$labPlot <- renderPlot( res=96,
-            width = 700, height = 700,
-            sampleByLabTarg(myResults[which(myResults$SamName == input$selectedMaterial), ])
-        )
+    output$rankPlot <- renderPlot( res=96,
+        width = 700, height = 700,
+        sampleByRank(myResults[which(myResults$SamName == input$selectedMaterial), ])
+    )
 
-        output$devPlot <- renderPlot( res=96,
-            width = 700, height = 700,
-            plotDeviations(myResults)
-        )
+    output$labPlot <- renderPlot( res=96,
+        width = 700, height = 700,
+        sampleByLabTarg(myResults[which(myResults$SamName == input$selectedMaterial), ])
+    )
 
-        output$compPlot <- renderPlot( res=96,
-            width = 500, height = 500,
-            comparePlot(materialSummary(myResults))
-        )
+    output$devPlot <- renderPlot( res=96,
+        width = 700, height = 700,
+        plotDeviations(myResults)
+    )
 
-        output$matTable <- DT::renderDataTable({
-            DT::datatable(materialTable(myResults),
-                caption = "Median log10 IU/mL Values",
-                rownames = FALSE,
-                options = list(
-                    pageLength = 23,
-                    lengthChange = FALSE,
-                    paging = FALSE
-                )
+    output$compPlot <- renderPlot( res=96,
+        width = 500, height = 500,
+        comparePlot(materialSummary(myResults))
+    )
+
+    output$matTable <- DT::renderDataTable({
+        DT::datatable(materialTable(myResults),
+            caption = "Median log10 IU/mL Values",
+            rownames = FALSE,
+            options = list(
+                pageLength = 23,
+                lengthChange = FALSE,
+                paging = FALSE
             )
-        })
-
-        output$matSummary <- DT::renderDataTable({
-            DT::datatable(materialSummary(myResults),
-                colnames = c("Material", "Median log10 IU/mL", "95% CI"),
-                caption = "Median log10 IU/mL Values & 95% CI",
-                rownames = FALSE,
-                options = list(
-                    pageLength = 8,
-                    lengthChange = FALSE,
-                    paging = FALSE
-                )
-            )
-        })
-        output$studyComplete <- DT::renderDataTable({
-            DT::datatable(myResults, rownames = FALSE) %>% DT::formatSignif(c(10, 11, 13:16), digits = 3, interval = 0)
-        })
-        output$downloadFullData <- downloadHandler(
-            filename = "harmonization_study_full_dataset.csv",
-            content = function(file) {
-                write.csv(myResults, file)
-            }
-        )
-        output$downloadPoCData <- downloadHandler(
-            filename = "proof_of_concept_dataset.csv",
-            content = function(file) {
-                file.copy(
-                    from = file.path("data", "20230223_PoC.csv"),
-                    to = file
-                )
-            }
-        )
-        output$POC_results_shared <- renderPlot( res=96,
-            #width = 700, 
-            height = 800,
-            #width = "auto", height = "auto",
-            plot_poc_results(shared_axis = TRUE)
-        )
-        output$POC_results_free <- renderPlot( res=96,
-            #width = 850, 
-            height = 800,
-            plot_poc_results(shared_axis = FALSE)
         )
     })
+
+    output$matSummary <- DT::renderDataTable({
+        DT::datatable(materialSummary(myResults),
+            colnames = c("Material", "Median log10 IU/mL", "95% CI"),
+            caption = "Median log10 IU/mL Values & 95% CI",
+            rownames = FALSE,
+            options = list(
+                pageLength = 8,
+                lengthChange = FALSE,
+                paging = FALSE
+            )
+        )
+    })
+
+    output$studyComplete <- DT::renderDataTable({
+        DT::datatable(myResults, rownames = FALSE) %>% DT::formatSignif(c(10, 11, 13:16), digits = 3, interval = 0)
+    })
+
+    output$downloadFullData <- downloadHandler(
+        filename = "harmonization_study_full_dataset.csv",
+        content = function(file) {
+            write.csv(myResults, file)
+        }
+    )
+
+    output$downloadPoCData <- downloadHandler(
+        filename = "proof_of_concept_dataset.csv",
+        content = function(file) {
+            file.copy(
+                from = file.path("data", "20230223_PoC.csv"),
+                to = file
+            )
+        }
+    )
+
+    output$POC_results_shared <- renderPlot( res=96,
+        #width = 700,
+        height = 800,
+        #width = "auto", height = "auto",
+        plot_poc_results(shared_axis = TRUE)
+    )
+
+    output$POC_results_free <- renderPlot( res=96,
+        #width = 850,
+        height = 800,
+        plot_poc_results(shared_axis = FALSE)
+    )
 }

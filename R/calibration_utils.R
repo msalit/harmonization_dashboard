@@ -117,17 +117,3 @@ fitGroup <- function(myLabTarget, gr = .y) {
 
     return(myLabTarget)
 }
-
-
-
-# calculate but don't plot
-calcResults <- function(studyData) {
-    # make an analyzeable nested dataframe for each target within each lab -- for calibration
-    myGroupedData <- group_by(studyData, Lab, Target)
-
-    # and fit all the nested chunks
-    myResults <- myGroupedData %>%
-        group_modify(~ fitAndPredict(data = .x, gr = .y))
-
-    return(myResults)
-}
