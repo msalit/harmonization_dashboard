@@ -51,7 +51,6 @@ install.packages(c(
   - `calAndPredict()`
   - `fitCal()`
   - `fitGroup()`
-  - `calcResults()`
 - Data i/o functions are specified in [data_intake.R](R/data_intake.R)
   - `getPoC()`: reads in the Proof of Concept data from a .csv.
   - `getStudyData()`: combines data read in from the rest of the .csvs associated with the study.
@@ -87,7 +86,7 @@ This app is **exemplary, not general-purpose**: it is wired to the specific mate
 
 4. **Update PoC calibrant IU values** in [poc_utils.R](R/poc_utils.R) lines 63–67. The current code hardcodes `AcroMetrix` (`log10IU = 4.033`) and `LGC` (`log10IU = 3.911`) with their CIs. The `Asuragen` filter on line 38 (`subset(PoC, SamName != "Asuragen")`) drops one sample because it was uncalibrated; revisit that filter if your PoC has a different uncalibrated set.
 
-5. **Update the reference (nominal) values for materials.** Both [plotting_utils.R](R/plotting_utils.R) (line 225, in `comparePlot()`) and [makePubPlots.R](R/makePubPlots.R) (in `pubResults2a()`) define `myNominals` as a length-8 numeric literal **in alphabetical order of `SamName`**. These are the manuscript's fixed truth values for the 8 study materials. For a new study, update both values and length, and verify the alphabetical ordering matches `materialSummary()`'s output.
+5. **Update the reference (nominal) values for materials.** Both [plotting_utils.R](R/plotting_utils.R) (line 225, in `comparePlot()`) and [makePubPlots.R](R/makePubPlots.R) (in `pubResults2a()`) define `myNominals` as a length-8 numeric literal **in alphabetical order of `SamName`**. These are the manuscript's fixed truth values for the 8 study materials, traceable to the WHO candidate-material preparation described in [WHO/BS/2020.2403](#references). For a new study, update both values and length, and verify the alphabetical ordering matches `materialSummary()`'s output.
 
 6. **Update the replicate column count.** [data_intake.R](R/data_intake.R) lines 25–28 use `pivot_longer(cols = c(9:12))` to fold four replicate columns (`R1`–`R4`) into long form. If your new wide-format CSVs have a different number of replicate columns, change the column indices.
 
@@ -101,4 +100,10 @@ This app is **exemplary, not general-purpose**: it is wired to the specific mate
 
 9. **Replace the publication-plot font.** [makePubPlots.R](R/makePubPlots.R) uses `family = "Trade Gothic LT Std"` in several `theme(text = element_text(...))` calls. Substitute a font available on your system, or comment those theme lines out to use ggplot2 defaults.
 
-10. **Replace `myNominals`'s nominal-vs-IU regression line.** [plotting_utils.R](R/plotting_utils.R) line 244 draws `geom_abline(intercept = 0, slope = 7.7/8, color = "grey")`, which encodes the reference relationship between log10 genome-copies/mL and log10 IU/mL specific to the WHO IS. Update the slope (and possibly intercept) for your study's reference standard.
+10. **Replace `myNominals`'s nominal-vs-IU regression line.** [plotting_utils.R](R/plotting_utils.R) line 244 draws `geom_abline(intercept = 0, slope = 7.7/8, color = "grey")`, which encodes the reference relationship between log10 genome-copies/mL and log10 IU/mL specific to the WHO IS. The slope `7.7/8` is `7.70` (the assigned potency, in log10 IU/mL, of the WHO IS after reconstitution in 0.5 mL) divided by `8` (the log10 of the `1×10⁸` genome-copies/mL concentration the bulk candidate material was prepared to contain) — both values from [WHO/BS/2020.2403](#references). Update the slope (and possibly intercept) for your study's reference standard.
+
+## References
+
+The nominal (reference) values and the genome-copies/mL ↔ IU/mL relationship used in `comparePlot()` ([plotting_utils.R](R/plotting_utils.R)) and `pubResults2a()` ([makePubPlots.R](R/makePubPlots.R)) derive from the WHO collaborative study that established the International Standard. The material-preparation details quoted in [data_intake.R](R/data_intake.R) (the `1×10⁸` genome-copies/mL bulk concentration and the `7.70` log10 IU/mL assigned potency) are from page 5 of that report:
+
+- Bentley E, Mee ET, Routley S, Mate R, Fritzsche M, Hurley M, Le Duff Y, Anderson R, Hockley J, Rigsby P, Page M, Rose N, Mattiuzzo G, and the Collaborative Study Group. *Collaborative Study for the Establishment of a WHO International Standard for SARS-CoV-2 RNA.* WHO Expert Committee on Biological Standardization, Geneva, 9–10 December 2020. **WHO/BS/2020.2403**.
