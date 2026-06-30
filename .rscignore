@@ -2,22 +2,11 @@
 # lean and keeps publication figures off the public server.
 #
 # NOTE: rsconnect's .rscignore matches EXACT file/directory names only --
-# wildcards (e.g. *.tiff) are NOT supported -- so each figure is listed by name.
-# The study's 8 materials are fixed, so this list is stable. If you add or
-# rename a figure, add its exact filename here.
+# wildcards (e.g. *.tiff) are NOT supported. A directory name excludes the
+# whole directory, which is why all publication figures now live in figures/.
 
-# publication figure outputs (Fig 1b: one per material; Fig 2a/2b)
-Asuragen.tiff
-Imperial College.tiff
-Instand.tiff
-LGC SeraCare.tiff
-Microbiologics.tiff
-NIBSC.tiff
-Thermo Fisher.tiff
-Zeptometrix.tiff
-fig2a.tiff
-fig2a_equalaxes.tiff
-fig2b.tiff
+# publication figure outputs (all of them)
+figures
 
 # figure-generation driver and dev-/manuscript-only files
 make_pub_plots.R

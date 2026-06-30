@@ -6,11 +6,11 @@
 # project root), then run:   source("make_pub_plots.R")
 # ...or step through it interactively after the source() calls below.
 #
-# Outputs (written to the project root; 180 x 180 mm, 600 dpi TIFF):
-#   <Material>.tiff        -- Fig 1b: one rank-ordered box plot per material
-#   fig2a.tiff             -- Fig 2a: study IU vs nominal copies (free axes)
-#   fig2a_equalaxes.tiff   -- Fig 2a: identical x/y scale range (reviewer ask)
-#   fig2b.tiff             -- Fig 2b: Proof-of-Concept clinical-sample results
+# Outputs (written to figures/ -- created on demand; 180 x 180 mm, 600 dpi TIFF):
+#   figures/<Material>.tiff       -- Fig 1b: one rank-ordered box plot per material
+#   figures/fig2a.tiff            -- Fig 2a: study IU vs nominal copies (free axes)
+#   figures/fig2a_equalaxes.tiff  -- Fig 2a: identical x/y scale range (reviewer ask)
+#   figures/fig2b.tiff            -- Fig 2b: Proof-of-Concept clinical-sample results
 #
 # NOTE: the figures use the "Trade Gothic LT Std" font. If it isn't installed
 # on this machine, edit the `family = ...` lines in R/makePubPlots.R (see README
@@ -36,8 +36,8 @@ source("R/poc_utils.R")          # computePoC()       (used by pubPoC2b)
 source("R/makePubPlots.R")       # pubBoxPlots1b(), pubResults2a(), pubPoC2b()
 
 # --- generate the figures (comment out any you don't need to rebuild) --------
-pubBoxPlots1b()   # Fig 1b: one <Material>.tiff per study material
-pubResults2a()    # Fig 2a: fig2a.tiff (free axes) + fig2a_equalaxes.tiff
-pubPoC2b()        # Fig 2b: fig2b.tiff
+pubBoxPlots1b()   # Fig 1b: one figures/<Material>.tiff per study material
+pubResults2a()    # Fig 2a: figures/fig2a.tiff + figures/fig2a_equalaxes.tiff
+pubPoC2b()        # Fig 2b: figures/fig2b.tiff
 
-message("Done. TIFFs written to: ", normalizePath(getwd()))
+message("Done. TIFFs written to: ", normalizePath("figures"))

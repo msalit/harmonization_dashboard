@@ -11,8 +11,15 @@
 
 # Figure 2b is a demonstration of the harmonization hypothesis with PoC results
 
+# all publication figures are written here (created on demand, relative to the
+# project root); kept out of the deploy bundle via .rscignore
+figDir <- "figures"
+
 # make and save a ranked-by-Lab:Target box plot for each material
 pubBoxPlots1b <- function() {
+
+  # make sure the output directory exists
+  dir.create(figDir, showWarnings = FALSE)
 
   # get the data in scope
   study <- getStudyData()
@@ -31,9 +38,9 @@ pubBoxPlots1b <- function() {
     # make the rank-ordered box plot for each material
     sampleByRankForPub(myResults[which(myResults$SamName == Matl),])
     
-    # save a PDF of the graph, with the material as the base filename 
-    ggsave(paste(Matl, ".tiff", sep=""), width=180, height = 180, units ="mm", dpi=600, device="tiff" ) 
-    #embed_fonts(paste(Matl, ".pdf", sep=""))
+    # save a TIFF of the graph into figures/, with the material as the base filename
+    ggsave(file.path(figDir, paste(Matl, ".tiff", sep="")), width=180, height = 180, units ="mm", dpi=600, device="tiff" )
+    #embed_fonts(file.path(figDir, paste(Matl, ".pdf", sep="")))
     
   }
 }
@@ -110,12 +117,15 @@ sampleByRankForPub <- function( aSample ) {
 
 
 # function to plot material median results against the nominal values
-# Emits two TIFFs:
+# Emits two TIFFs into figures/:
 #   fig2a.tiff          -- axes scaled independently (original)
 #   fig2a_equalaxes.tiff -- identical scale range on x and y, equal aspect
 #                           (per reviewer comment), so a decade is the same
 #                           visual length on both axes
 pubResults2a <- function() {
+
+  # make sure the output directory exists
+  dir.create(figDir, showWarnings = FALSE)
 
   # get the data in scope
   study <- getStudyData()
@@ -152,7 +162,7 @@ pubResults2a <- function() {
     scale_x_log10(label = label_log(), breaks=breaks_log())
 
   print(p_free)
-  ggsave(paste("fig2a", ".tiff", sep=""), plot = p_free, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
+  ggsave(file.path(figDir, paste("fig2a", ".tiff", sep="")), plot = p_free, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
 
   # --- version 2: identical scale range on both axes (reviewer comment) ---
   # one common log10 range covering all x and y data, including the CI whiskers
@@ -172,12 +182,15 @@ pubResults2a <- function() {
     coord_fixed(ratio = 1)  # one log10 unit equal length on x and y
 
   print(p_equal)
-  ggsave(paste("fig2a_equalaxes", ".tiff", sep=""), plot = p_equal, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
+  ggsave(file.path(figDir, paste("fig2a_equalaxes", ".tiff", sep="")), plot = p_equal, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
 }
 
 
 pubPoC2b <- function( samMedian ) {
-  
+
+  # make sure the output directory exists
+  dir.create(figDir, showWarnings = FALSE)
+
   # read the data and compute the PoC experiment results
   myPoC = computePoC()
   
@@ -197,7 +210,7 @@ pubPoC2b <- function( samMedian ) {
     theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
     theme( strip.text.x = element_text(size=16, hjust = 0, family="Trade Gothic LT Std", face="bold" ))
   
-  #ggsave( "fig2b", width=8, height = 10, units ="in", device="pdf" )
-  ggsave(paste("fig2b", ".tiff", sep=""), width=180, height = 180, units ="mm", dpi=600, device="tiff" ) 
+  #ggsave( file.path(figDir, "fig2b"), width=8, height = 10, units ="in", device="pdf" )
+  ggsave(file.path(figDir, paste("fig2b", ".tiff", sep="")), width=180, height = 180, units ="mm", dpi=600, device="tiff" )
   
 }
