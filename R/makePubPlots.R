@@ -110,6 +110,11 @@ sampleByRankForPub <- function( aSample ) {
 
 
 # function to plot material median results against the nominal values
+# Emits two TIFFs:
+#   fig2a.tiff          -- axes scaled independently (original)
+#   fig2a_equalaxes.tiff -- identical scale range on x and y, equal aspect
+#                           (per reviewer comment), so a decade is the same
+#                           visual length on both axes
 pubResults2a <- function() {
 
   # get the data in scope
@@ -122,31 +127,52 @@ pubResults2a <- function() {
 
   # get the sample medians
   samMedian <- materialSummary(myResults)
-  
+
   # here are the nominal values in alphabetical order, in log10 copies/mL
   myNominals = c(10.30103, 4, 5.195899652, 3.698970004, 4.505149978, 6.73, 3.698970004, 4.698970004)
-  
+
   # here's a nice plottable data frame
   myCompar = cbind( samMedian, myNominals)
   names(myCompar) = c( "Material", "studyVal", "studyValCI", "nominal")
-  
-  # make the ggplot object
-  myCompPlot = ggplot( myCompar, aes( x=10^nominal, y = 10^studyVal, color = Material))
-  
-  # and a pointrange (error bar) plot
-  myCompPlot + 
-    geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) + 
-    theme_bw() + 
+
+  # the plot content shared by both versions -- everything except the axis scales
+  basePlot = ggplot( myCompar, aes( x=10^nominal, y = 10^studyVal, color = Material)) +
+    geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) +
+    theme_bw() +
     ylab("Study Results (IU/mL)") +
     xlab( "Nominal Value (genome copies/mL)") +
-    scale_y_log10(label = label_log(), breaks=breaks_log()) +
-    scale_x_log10(label = label_log(), breaks=breaks_log()) +
     theme( legend.position = "bottom") +
     theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
     geom_abline(intercept = 0, slope = 7.7/8, color = "grey") +
     theme(text=element_text(size=16,  family="Trade Gothic LT Std"))
-  
-  ggsave(paste("fig2a", ".tiff", sep=""), width=180, height = 180, units ="mm", dpi=600, device="tiff" ) 
+
+  # --- version 1: original, x and y axes scaled independently ---
+  p_free = basePlot +
+    scale_y_log10(label = label_log(), breaks=breaks_log()) +
+    scale_x_log10(label = label_log(), breaks=breaks_log())
+
+  print(p_free)
+  ggsave(paste("fig2a", ".tiff", sep=""), plot = p_free, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
+
+  # --- version 2: identical scale range on both axes (reviewer comment) ---
+  # one common log10 range covering all x and y data, including the CI whiskers
+  axisRange = range(
+    myCompar$nominal,
+    myCompar$studyVal - myCompar$studyValCI,
+    myCompar$studyVal + myCompar$studyValCI,
+    na.rm = TRUE
+  )
+  # pad by a quarter-decade so points aren't on the panel edge
+  axisRange = axisRange + c(-0.25, 0.25)
+  axisLimits = 10^axisRange
+
+  p_equal = basePlot +
+    scale_y_log10(limits = axisLimits, label = label_log(), breaks=breaks_log()) +
+    scale_x_log10(limits = axisLimits, label = label_log(), breaks=breaks_log()) +
+    coord_fixed(ratio = 1)  # one log10 unit equal length on x and y
+
+  print(p_equal)
+  ggsave(paste("fig2a_equalaxes", ".tiff", sep=""), plot = p_equal, width=180, height = 180, units ="mm", dpi=600, device="tiff" )
 }
 
 

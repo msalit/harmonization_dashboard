@@ -219,8 +219,11 @@ plotDeviations <- function(myResults) {
 
 
 # function to plot material median results against the nominal values
+# Axes share one identical scale range with equal aspect (matches the
+# fig2a_equalaxes publication figure), so a decade is the same visual length
+# on x and y and deviation from the grey reference line reads fairly.
 comparePlot <- function(samMedian) {
-    
+
     # here are the nominal values in alphabetical order, in log10 copies/mL
     myNominals <- c(10.30103, 4, 5.195899652, 3.698970004, 4.505149978, 6.73, 3.698970004, 4.698970004)
 
@@ -228,18 +231,29 @@ comparePlot <- function(samMedian) {
     myCompar <- cbind(samMedian, myNominals)
     names(myCompar) <- c("Material", "studyVal", "studyValCI", "nominal")
 
+    # one common log10 range covering all x and y data, including the CI
+    # whiskers, padded a quarter-decade so points clear the panel edge
+    axisRange <- range(
+        myCompar$nominal,
+        myCompar$studyVal - myCompar$studyValCI,
+        myCompar$studyVal + myCompar$studyValCI,
+        na.rm = TRUE
+    ) + c(-0.25, 0.25)
+    axisLimits <- 10^axisRange
+
     # make the ggplot object
     myCompPlot <- ggplot(myCompar, aes(x = 10^nominal, y = 10^studyVal, color = Material))
 
     # and a pointrange (error bar) plot
     myCompPlot +
-        geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) + 
-        theme_bw() + 
+        geom_pointrange(aes( ymin = 10^(studyVal - studyValCI), ymax = 10^(studyVal + studyValCI)), alpha =0.7) +
+        theme_bw() +
         ylab("Study Results (IU/mL)") +
         xlab( "Nominal Value (genome copies/mL)") +
-        scale_y_log10(label = label_log(), breaks=breaks_log()) +
-        scale_x_log10(label = label_log(), breaks=breaks_log()) +
+        scale_y_log10(limits = axisLimits, label = label_log(), breaks=breaks_log()) +
+        scale_x_log10(limits = axisLimits, label = label_log(), breaks=breaks_log()) +
+        coord_fixed(ratio = 1) +  # one log10 unit equal length on x and y
         theme( legend.position = "bottom") +
         theme(legend.text=element_text(size=10), legend.title=element_text(size=12)) +
-        geom_abline(intercept = 0, slope = 7.7/8, color = "grey")      
+        geom_abline(intercept = 0, slope = 7.7/8, color = "grey")
 }
