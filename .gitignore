@@ -4,6 +4,7 @@
 .Ruserdata
 README.html
 *.tiff
+*.tif
 *.pdf
 .DS_Store
 .vscode

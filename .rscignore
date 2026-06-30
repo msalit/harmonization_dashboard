@@ -1,0 +1,14 @@
+# Files the running Shiny app does not need -- keeps the shinyapps.io bundle
+# lean and keeps publication figures off the public server.
+# (rsconnect honors this the way git honors .gitignore.)
+
+# publication figure outputs
+*.tiff
+*.tif
+*.pdf
+
+# figure-generation driver and dev-/manuscript-only files
+make_pub_plots.R
+renv.lock.archive
+README.md
+RNAStudy_for_Publication.Rproj
